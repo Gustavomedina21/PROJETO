@@ -9,23 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Implementação concreta da interface ItemDAO.
- * Gerencia todas as operações CRUD (Create, Read, Update, Delete) 
- * para itens do catálogo utilizando JDBC e PostgreSQL.
- * Utiliza PreparedStatement para prevenir SQL Injection.
- * 
- * @author Sistema de Catálogo
- * @version 1.0
+
  */
 public class ItemDAOImpl implements ItemDAO {
 
     /**
-     * Método auxiliar privado que mapeia uma linha do ResultSet para um objeto Item.
-     * Extrai os dados de cada coluna e cria uma nova instância de Item.
-     * 
-     * @param rs ResultSet posicionado na linha a ser convertida
-     * @return Objeto Item com os dados da linha atual do ResultSet
-     * @throws SQLException Se ocorrer erro ao acessar as colunas do ResultSet
+
      */
     private Item mapRow(ResultSet rs) throws SQLException {
         return new Item(
@@ -42,15 +31,12 @@ public class ItemDAOImpl implements ItemDAO {
      * Insere um novo item no banco de dados.
      * Utiliza PreparedStatement para evitar SQL Injection.
      * O ID é gerado automaticamente pelo banco (SERIAL).
-     * 
-     * @param item Objeto Item contendo os dados a serem inseridos
-     * @throws Exception Se ocorrer erro na conexão ou execução SQL
      */
     @Override
     public void inserir(Item item) throws Exception {
         String sql = "INSERT INTO items (titulo, autor, ano, genero, detalhes) VALUES (?, ?, ?, ?, ?)";
         
-        // Try-with-resources garante fechamento automático dos recursos
+        
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
@@ -68,9 +54,6 @@ public class ItemDAOImpl implements ItemDAO {
     /**
      * Lista todos os itens cadastrados no banco de dados.
      * Os resultados são ordenados por ID em ordem crescente.
-     * 
-     * @return Lista contendo todos os itens encontrados (pode ser vazia)
-     * @throws Exception Se ocorrer erro na conexão ou execução SQL
      */
     @Override
     public List<Item> listarTodos() throws Exception {
@@ -95,10 +78,6 @@ public class ItemDAOImpl implements ItemDAO {
      * Busca itens por título ou autor usando correspondência parcial.
      * A busca é case-insensitive (não diferencia maiúsculas de minúsculas).
      * Utiliza o operador LIKE do SQL para encontrar correspondências parciais.
-     * 
-     * @param termo Termo de busca a ser procurado no título ou autor
-     * @return Lista de itens que correspondem ao termo (pode ser vazia)
-     * @throws Exception Se ocorrer erro na conexão ou execução SQL
      */
     @Override
     public List<Item> buscarPorTituloOuAutor(String termo) throws Exception {
@@ -126,10 +105,6 @@ public class ItemDAOImpl implements ItemDAO {
     /**
      * Busca um item específico pelo seu ID único.
      * Retorna um Optional para indicar presença ou ausência do item.
-     * 
-     * @param id Identificador único do item a ser buscado
-     * @return Optional contendo o item se encontrado, ou vazio caso contrário
-     * @throws Exception Se ocorrer erro na conexão ou execução SQL
      */
     @Override
     public Optional<Item> buscarPorId(int id) throws Exception {
@@ -154,14 +129,6 @@ public class ItemDAOImpl implements ItemDAO {
      * Atualiza campos específicos de um item existente.
      * Constrói dinamicamente a query SQL apenas com os campos fornecidos.
      * Apenas campos não nulos e não vazios são incluídos na atualização.
-     * 
-     * @param id ID do item a ser atualizado
-     * @param titulo Novo título (null ou vazio para não alterar)
-     * @param autor Novo autor (null ou vazio para não alterar)
-     * @param ano Novo ano (null ou 0 para não alterar)
-     * @param genero Novo gênero (null ou vazio para não alterar)
-     * @param detalhes Novos detalhes (null ou vazio para não alterar)
-     * @throws Exception Se nenhum campo válido for fornecido ou erro SQL
      */
     @Override
     public void atualizar(int id, String titulo, String autor, Integer ano, String genero, String detalhes) throws Exception {
@@ -223,9 +190,6 @@ public class ItemDAOImpl implements ItemDAO {
     /**
      * Remove um item do banco de dados pelo seu ID.
      * A operação é permanente e não pode ser desfeita.
-     * 
-     * @param id Identificador único do item a ser deletado
-     * @throws Exception Se ocorrer erro na conexão ou execução SQL
      */
     @Override
     public void deletar(int id) throws Exception {
