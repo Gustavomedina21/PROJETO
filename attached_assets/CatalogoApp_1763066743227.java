@@ -12,16 +12,6 @@ import java.util.Scanner;
  * Classe principal da aplicação de Catálogo com interface de linha de comando (CLI).
  * Apresenta um menu interativo para gerenciar itens no catálogo,
  * utilizando o padrão DAO para acesso aos dados.
- * 
- * Funcionalidades disponíveis:
- * - Cadastrar novos itens
- * - Listar todos os itens
- * - Buscar itens por título ou autor
- * - Atualizar informações de itens
- * - Deletar itens
- * 
- * @author Sistema de Catálogo
- * @version 1.0
  */
 public class CatalogoApp {
     private static Scanner sc = new Scanner(System.in);
@@ -30,9 +20,6 @@ public class CatalogoApp {
     /**
      * Método principal que inicia a aplicação.
      * Verifica se a DATABASE_URL está configurada e exibe o menu interativo.
-     * O loop continua até o usuário escolher sair (opção 0).
-     * 
-     * @param args Argumentos da linha de comando (não utilizados)
      */
     public static void main(String[] args) {
         String databaseUrl = System.getenv("DATABASE_URL");
@@ -56,7 +43,6 @@ public class CatalogoApp {
             System.out.print("Escolha: ");
             opcao = lerInt();
 
-            // Switch usando sintaxe moderna (arrow syntax) do Java
             switch (opcao) {
                 case 1 -> cadastrarItem();
                 case 2 -> listarItens();
@@ -86,7 +72,7 @@ public class CatalogoApp {
         System.out.print("Detalhes: ");
         String detalhes = sc.nextLine();
 
-        // Cria novo item com ID 0 (será gerado automaticamente pelo banco)
+       
         Item item = new Item(0, titulo, autor, ano, genero, detalhes);
         
         try {
@@ -111,7 +97,7 @@ public class CatalogoApp {
             if (items.isEmpty()) {
                 System.out.println("Nenhum item encontrado.");
             } else {
-                // Usa forEach com method reference para exibir cada item
+            
                 items.forEach(System.out::println);
             }
         } catch (Exception e) {
@@ -240,8 +226,6 @@ public class CatalogoApp {
      * Método auxiliar para ler números inteiros do console com validação.
      * Continua solicitando entrada até receber um número válido.
      * Trata exceções de formatação automaticamente.
-     * 
-     * @return Número inteiro válido fornecido pelo usuário
      */
     private static int lerInt() {
         while (true) {
@@ -249,7 +233,7 @@ public class CatalogoApp {
                 int valor = Integer.parseInt(sc.nextLine());
                 return valor;
             } catch (NumberFormatException e) {
-                // Solicita novamente em caso de entrada inválida
+            
                 System.out.print("Digite um número válido: ");
             }
         }
