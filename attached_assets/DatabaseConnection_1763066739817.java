@@ -29,7 +29,7 @@ public class DatabaseConnection {
         }
         
         try {
-            // Normaliza postgres:// para postgresql://
+           
             if (databaseUrl.startsWith("postgres://")) {
                 databaseUrl = databaseUrl.replace("postgres://", "postgresql://");
             }
@@ -91,16 +91,7 @@ public class DatabaseConnection {
         return databaseUrl;
     }
 
-    /**
-     * Obtém uma nova conexão com o banco de dados PostgreSQL.
-     * Cada chamada cria uma nova conexão usando DriverManager.
-     * 
-     * É responsabilidade do chamador fechar a conexão após o uso
-     * (recomenda-se usar try-with-resources).
-     * 
-     * @return Nova conexão ativa com o banco de dados
-     * @throws SQLException Se DATABASE_URL não estiver configurado ou houver erro de conexão
-     */
+  
     public static Connection getConnection() throws SQLException {
         if (JDBC_URL == null) {
             throw new SQLException("DATABASE_URL não configurado!");
