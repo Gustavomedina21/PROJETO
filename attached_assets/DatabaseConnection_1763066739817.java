@@ -4,16 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Classe utilitária para gerenciamento de conexões com o banco de dados PostgreSQL.
- * Converte automaticamente a URL de conexão do Replit (formato postgresql://)
- * para o formato JDBC (jdbc:postgresql://).
- * 
- * Utiliza o padrão Singleton implícito através de variável estática.
- * 
- * @author Sistema de Catálogo
- * @version 1.0
- */
+
 public class DatabaseConnection {
     private static String JDBC_URL;
 
@@ -29,17 +20,7 @@ public class DatabaseConnection {
     }
 
     /**
-     * Converte uma URL de banco de dados do formato Replit/PostgreSQL padrão
-     * para o formato JDBC específico do driver PostgreSQL.
-     * 
-     * Conversões realizadas:
-     * - postgres:// → jdbc:postgresql://
-     * - postgresql:// → jdbc:postgresql://
-     * - Extrai credenciais (user/password) da URL e as converte em parâmetros
-     * - Preserva host, porta, caminho do banco e query parameters
-     * 
-     * @param databaseUrl URL original do banco (ex: postgresql://user:pass@host:port/db)
-     * @return URL convertida no formato JDBC (ex: jdbc:postgresql://host:port/db?user=...&password=...)
+
      */
     private static String convertToJdbcUrl(String databaseUrl) {
         // Se já está no formato JDBC, retorna sem modificação
